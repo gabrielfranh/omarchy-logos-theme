@@ -1,0 +1,50 @@
+/* Academia surfaces for Nautilus. Keep these in sync with colors.toml. */
+window.nautilus-window {
+  --logos-limestone: #F1E9DA;
+  --logos-sidebar: #E7DDCC;
+  --logos-paper: #F9F3E8;
+  --logos-ink: #282922;
+  --logos-terracotta: #8B452F;
+  --logos-selection: #DCCCB9;
+
+  --window-bg-color: var(--logos-limestone);
+  --window-fg-color: var(--logos-ink);
+  --view-bg-color: var(--logos-paper);
+  --view-fg-color: var(--logos-ink);
+  --headerbar-bg-color: var(--logos-limestone);
+  --headerbar-fg-color: var(--logos-ink);
+  --headerbar-backdrop-color: var(--logos-limestone);
+  --headerbar-border-color: var(--logos-ink);
+  --sidebar-bg-color: var(--logos-sidebar);
+  --sidebar-fg-color: var(--logos-ink);
+  --sidebar-backdrop-color: var(--logos-sidebar);
+  --secondary-sidebar-bg-color: var(--logos-sidebar);
+  --secondary-sidebar-fg-color: var(--logos-ink);
+  --secondary-sidebar-backdrop-color: var(--logos-sidebar);
+  --card-bg-color: var(--logos-paper);
+  --card-fg-color: var(--logos-ink);
+  --popover-bg-color: var(--logos-paper);
+  --popover-fg-color: var(--logos-ink);
+  --dialog-bg-color: var(--logos-limestone);
+  --dialog-fg-color: var(--logos-ink);
+  --accent-bg-color: var(--logos-terracotta);
+  --accent-color: var(--logos-terracotta);
+  --accent-fg-color: var(--logos-paper);
+  --destructive-color: #9A3D37;
+  --success-color: #446049;
+  --warning-color: #76521E;
+}
+
+window.nautilus-window .nautilus-pathbar {
+  background-color: var(--logos-sidebar);
+}
+
+window.nautilus-window .nautilus-path-button.current-dir {
+  color: var(--logos-terracotta);
+}
+
+window.nautilus-window .nautilus-list-view listview > row:selected,
+window.nautilus-window .nautilus-grid-view gridview > child:selected {
+  background-color: var(--logos-selection);
+  color: var(--logos-ink);
+}

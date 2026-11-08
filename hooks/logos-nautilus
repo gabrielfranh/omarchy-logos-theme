@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+gtk_dir="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-4.0"
+gtk_css="$gtk_dir/gtk.css"
+managed_css="$gtk_dir/logos-nautilus.css"
+theme_name="$HOME/.local/state/omarchy/current/theme.name"
+logos_css="$HOME/.config/omarchy/themes/logos/nautilus.css"
+import='@import url("logos-nautilus.css");'
+
+# Read the active name after taking the lock. Theme hooks can finish out of order.
+if [[ ! -d $gtk_dir && $(cat -- "$theme_name" 2>/dev/null || true) != logos ]]; then
+  exit 0
+fi
+mkdir -p -- "$gtk_dir"
+exec 9<"$gtk_dir"
+flock 9
+
+source=/dev/null
+if [[ $(cat -- "$theme_name" 2>/dev/null || true) == logos && -f $logos_css ]]; then
+  source=$logos_css
+fi
+
+if [[ $source == /dev/null && ! -e $managed_css ]]; then
+  exit 0
+fi
+if [[ -L $managed_css || ( -e $managed_css && ! -f $managed_css ) ]]; then
+  printf 'Lógos: expected a regular managed stylesheet at %s\n' "$managed_css" >&2
+  exit 1
+fi
+if [[ $source != /dev/null && -e $gtk_css && ! -f $gtk_css ]]; then
+  printf 'Lógos: expected a regular GTK stylesheet at %s\n' "$gtk_css" >&2
+  exit 1
+fi
+
+if [[ $source != /dev/null && -L $gtk_css ]] && ! grep -Fxq -- "$import" "$gtk_css"; then
+  printf 'Lógos: add %s to the stylesheet linked from %s\n' "$import" "$gtk_css" >&2
+  exit 1
+fi
+
+staged=$(mktemp -- "$gtk_dir/.logos-nautilus.XXXXXX")
+trap 'rm -f -- "$staged"' EXIT
+if ! cmp -s -- "$source" "$managed_css"; then
+  cat -- "$source" > "$staged"
+  mv -fT -- "$staged" "$managed_css"
+fi
+
+if [[ $source != /dev/null ]] && ! grep -Fxq -- "$import" "$gtk_css" 2>/dev/null; then
+  staged=$(mktemp -- "$gtk_dir/.logos-gtk.XXXXXX")
+  {
+    printf '%s\n' "$import"
+    if [[ -f $gtk_css ]]; then
+      cat -- "$gtk_css"
+    fi
+  } > "$staged"
+  if [[ -f $gtk_css ]]; then
+    chmod --reference="$gtk_css" "$staged"
+  fi
+  mv -fT -- "$staged" "$gtk_css"
+fi
