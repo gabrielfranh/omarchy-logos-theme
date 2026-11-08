@@ -8,7 +8,14 @@ to the lógos, the reason that orders the cosmos in Stoic philosophy.
 
 Copy the `logos` directory to `~/.config/omarchy/themes/` and run
 `omarchy theme set logos`. Use `omarchy theme bg next` to cycle through
-the five wallpapers.
+the two wallpapers.
+
+## Typography
+
+The **ΛΟΓΟΣ** wordmark in the preview uses **GFS Neohellenic Bold** by the
+Greek Font Society. The [font](fonts/GFSNeohellenicBold.ttf) is included
+under the [SIL Open Font License 1.1](fonts/OFL.txt). Omarchy manages the
+interface font separately.
 
 ## References
 
@@ -18,4 +25,3 @@ the five wallpapers.
   a public-domain reproduction from Wikimedia Commons, 3697 × 2414.
 - [*The Death of Socrates* by Jacques-Louis David](https://www.metmuseum.org/art/collection/search/436105),
   a public-domain reproduction from The Metropolitan Museum of Art, 4000 × 2663.
-- [Credits for the other three images](CREDITS.md).
