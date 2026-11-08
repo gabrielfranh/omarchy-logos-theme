@@ -9,6 +9,12 @@ limestone and warm paper with ink, terracotta, mineral blue, and olive.
 The preview combines real Alacritty and Nautilus captures from an isolated
 session with a sample folder and Raphael's fresco.
 
+## Wallpapers
+
+| The School of Athens | The Death of Socrates |
+| --- | --- |
+| ![The School of Athens by Raphael](backgrounds/01-the-school-of-athens.jpg) | ![The Death of Socrates by Jacques-Louis David](backgrounds/02-the-death-of-socrates.jpg) |
+
 ## Installation
 
 ```sh
