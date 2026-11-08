@@ -11,34 +11,42 @@ session with a sample folder and Raphael's fresco.
 
 ## Installation
 
-Copy the theme folder to `~/.config/omarchy/themes/logos/`, then run:
-
 ```sh
-omarchy theme set logos
+omarchy theme install https://github.com/gabrielfranh/omarchy-logos-theme.git
 ```
+
+Omarchy installs and applies Lógos in one step. To switch back to it later,
+run `omarchy theme set logos`. The installer replaces any existing copy in
+`~/.config/omarchy/themes/logos/`.
 
 Omarchy uses the palette for the shell, window borders, terminal, and other
 supported apps. Use `omarchy theme bg next` to switch between the two wallpapers.
 
-### Nautilus (GNOME Files)
+### Optional: match GNOME Files (Nautilus)
 
-The theme includes a separate GTK 4 stylesheet for Nautilus. From the Lógos
-repository, register the theme hook and reapply the theme:
+Skip this step if you use another file manager or prefer the standard GNOME
+Files colors. The Lógos theme works without it.
+
+This integration gives Files the Academia palette: a stone sidebar, a warm
+paper background, terracotta highlights, and sand-colored selections. To
+enable it, run these commands once after installing Lógos:
 
 ```sh
-omarchy hook install theme-set ./hooks/logos-nautilus
+omarchy hook install theme-set "$HOME/.config/omarchy/themes/logos/hooks/logos-nautilus"
 omarchy theme set logos
 ```
 
-Quit and reopen Files if it was running. The hook activates the stylesheet when
-Lógos is selected and clears it on other themes. It adds one import to the GTK 4
-user stylesheet and preserves existing CSS. The theme selects the
-`Yaru-wartybrown` icon set included with Omarchy.
+The first command registers a small script that Omarchy runs when you switch
+themes. It enables the Files colors for Lógos and disables them for other
+themes. The second command applies the colors now. If Files was already
+running, quit and reopen it to see the change.
 
-To remove the integration, delete the `logos-nautilus` hook from
-`~/.config/omarchy/hooks/theme-set.d/`, remove the
-`@import url("logos-nautilus.css");` line from the GTK 4 user stylesheet, and
-remove its sibling `logos-nautilus.css`. Reopen Files to reload its styles.
+To undo this setup:
+
+1. Remove `~/.config/omarchy/hooks/theme-set.d/logos-nautilus`.
+2. In `~/.config/gtk-4.0/gtk.css`, remove only the line
+   `@import url("logos-nautilus.css");`.
+3. Remove `~/.config/gtk-4.0/logos-nautilus.css`, then quit and reopen Files.
 
 ## Design
 
